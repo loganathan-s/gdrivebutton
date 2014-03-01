@@ -6,6 +6,7 @@ gem 'rails', '4.0.3'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -34,6 +35,9 @@ end
 gem 'therubyracer'
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
+
+#added for heroku
+gem 'pg'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
