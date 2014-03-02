@@ -1,12 +1,12 @@
 GdriveApiIntegration::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
+  #resources :drive_buttons
   # You can have the root of your site routed with "root"
-   root "drive_buttons#index"
+   root "drive_buttons#save_button"
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+    get 'drive_buttons/picker' => "drive_buttons#picker"
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

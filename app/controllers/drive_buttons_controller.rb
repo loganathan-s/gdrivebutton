@@ -1,4 +1,7 @@
 class DriveButtonsController < ApplicationController
-  def index
+  def save_button
   end
+  
+  def picker
+  end	  
 end

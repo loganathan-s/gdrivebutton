@@ -1,0 +1,58 @@
+ <script>
+     var developerKey = "DEVELOPER KEY"
+     var clientid = "CLIENT ID"
+     var scope = ["https://www.googleapis.com/auth/photos"]
+     var oauthToken;
+     
+      function onApiLoad() {        
+        gapi.load('auth', {'callback': onAuthApiLoad});
+        gapi.load('picker');
+    }
+      
+  function onAuthApiLoad() {
+        window.gapi.auth.authorize(
+            { 'client_id':  clientid,  'scope':  scope
+            },  handleAuthResult);
+      }
+
+    // Function called after onAuthApiLoad, to handle authoriaztion
+     function handleAuthResult(authResult) {
+       // If user clicks Accept button, save the accesstoken for that user to oauthToken
+        if (authResult && !authResult.error) {
+          oauthToken = authResult.access_token;
+	  // Function to create picker view on our application
+          createPicker();
+        }
+      }
+            
+      // Create and render a Picker object for picking user Photos.
+      function createPicker() {
+        var picker = new google.picker.PickerBuilder().
+        addView(new google.picker.DocsUploadView()).
+	addView(google.picker.ViewId.PHOTO_ALBUMS).
+	addView(new google.picker.DocsView()).
+        setOAuthToken(oauthToken).
+        setDeveloperKey(developerKey).
+	setCallback(pickerCallback).
+	build();
+        picker.setVisible(true);
+      }
+      
+      
+      function pickerCallback(data) {
+        var url = 'nothing';
+	// Make sure user clicked select button
+	// data object holds the selected file details
+        if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+          var doc = data[google.picker.Response.DOCUMENTS][0];
+          url = doc[google.picker.Document.URL];
+        }
+        var message = 'You picked: ' + url;
+        document.getElementById('result').innerHTML = message;
+      }
+      
+      </script>
+
+    <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>  
+    
+        <div id="result"></div>
